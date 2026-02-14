@@ -1,0 +1,19 @@
+{
+  "title": "US Housing Affordability Crisis by County",
+  "id": "lucassteuber/us-housing-affordability-crisis",
+  "licenses": [{"name": "CC-BY-4.0"}],
+  "subtitle": "3,222 US counties: rent burden, income ratios, minimum wage hours needed",
+  "description": "3,222 US counties with rent burden analysis, affordability calculations, and minimum wage comparisons derived from Census ACS 2022 data.",
+  "isPrivate": false,
+  "keywords": [
+    "housing",
+    "affordability",
+    "rent-burden",
+    "census",
+    "county-level",
+    "economics",
+    "inequality",
+    "minimum-wage",
+    "us-data"
+  ]
+}

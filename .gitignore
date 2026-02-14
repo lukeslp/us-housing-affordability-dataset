@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Cache
+.cache/
+cache/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Large files (if any)
+*.parquet
+
+# Temp
+*.tmp
+*.bak
