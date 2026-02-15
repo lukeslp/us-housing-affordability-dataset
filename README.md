@@ -94,12 +94,6 @@ extreme = df[df['hours_at_min_wage_for_rent'] >= 100]
 print(f"100+ hours at min wage: {len(extreme):,}")
 ```
 
-## Key Findings
-
-- Counties where >50% of renters are rent-burdened
-- Median hours at minimum wage for rent: varies widely by region
-- Urban vs rural affordability patterns
-
 ## License
 
 CC-BY-4.0 (Census data is public domain; derived calculations by Luke Steuber)
