@@ -54,6 +54,12 @@ with open('data.json') as f:
 }
 ```
 
+
+## Distribution
+
+- **GitHub**: [lukeslp/us-housing-affordability-crisis](https://github.com/lukeslp/us-housing-affordability-crisis)
+- **Kaggle**: [lucassteuber/us-housing-affordability-crisis](https://www.kaggle.com/datasets/lucassteuber/us-housing-affordability-crisis)
+
 ## Author
 
 **Luke Steuber**
