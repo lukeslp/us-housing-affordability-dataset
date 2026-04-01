@@ -27,7 +27,7 @@ size_categories:
 
 ## Dataset Structure
 
-[Check the demo notebook for data exploration examples]
+See `demo_notebook.ipynb` for data exploration examples.
 
 ## Usage
 
