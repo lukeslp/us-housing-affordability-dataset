@@ -34,11 +34,23 @@ dataset_info:
       dtype: int64
     - name: median_household_income
       dtype: int64
+    - name: total_housing_units
+      dtype: int64
+    - name: owner_occupied
+      dtype: int64
+    - name: renter_occupied
+      dtype: int64
+    - name: pct_renter
+      dtype: float64
+    - name: annual_rent
+      dtype: int64
     - name: rent_to_income_ratio
       dtype: float64
     - name: affordability_category
       dtype: string
     - name: hours_at_min_wage_for_rent
+      dtype: float64
+    - name: weeks_at_min_wage_for_rent
       dtype: float64
   splits:
     - name: train
@@ -51,7 +63,7 @@ dataset_info:
 
 ## What's Inside
 
-- 3,222 county records (all US counties with renter data)
+- 3,222 records: every US county plus Puerto Rico's 78 municipios
 - Rent burden percentages (30% and 50% thresholds)
 - Computed affordability metrics
 - Minimum wage hours needed for rent
@@ -63,8 +75,8 @@ Raw Census data requires pulling from multiple tables and computing derived metr
 
 | Computed Field | Calculation |
 |----------------|-------------|
-| rent_to_income_ratio | Annual rent / median income |
-| affordability_category | Affordable (<30%), Burdened (30-50%), Severe (>50%) |
+| rent_to_income_ratio | Annual rent / median income, as a percentage |
+| affordability_category | Affordable (ratio under 30): 3,192 records. Moderately Burdened (30 and up): 29. Extremely Burdened: 1, and that one is a data error (see Known Issues) |
 | hours_at_min_wage_for_rent | Monthly rent / $7.25 federal minimum |
 | weeks_at_min_wage_for_rent | Full-time weeks needed |
 
@@ -85,28 +97,33 @@ import pandas as pd
 df = pd.read_csv('housing_crisis_merged.csv')
 print(f"Total counties: {len(df):,}")
 
-# Find most burdened counties
-severe = df[df['affordability_category'] == 'Severe Burden']
-print(f"Severely burdened: {len(severe):,}")
+# Drop the 10 counties where the Census suppressed the rent (see Known Issues)
+df = df[df['median_gross_rent'] > 0]
+
+# Find the burdened counties
+burdened = df[df['affordability_category'] == 'Moderately Burdened']
+print(f"Rent takes 30% or more of income: {len(burdened):,}")
 
 # Counties where rent requires 100+ hours at minimum wage
 extreme = df[df['hours_at_min_wage_for_rent'] >= 100]
 print(f"100+ hours at min wage: {len(extreme):,}")
 ```
 
+## Known Issues
+
+The Census Bureau writes `-666666666` when it can't publish an estimate. Ten sparsely populated counties have that code in `median_gross_rent`, and Loving County, Texas has it in `median_household_income` too. The code was not filtered out before the derived fields were computed, so `annual_rent`, `rent_to_income_ratio`, `affordability_category` and both minimum-wage fields are meaningless for those ten rows. Drop rows where `median_gross_rent` is negative.
+
+The ten: Alpine County, California; Owsley County, Kentucky; Cameron Parish, Louisiana; Borden, Glasscock, Kenedy, King, Loving and Terrell counties, Texas; Daggett County, Utah.
+
 ## License
 
-CC-BY-4.0 (Census data is public domain; derived calculations by Luke Steuber)
+CC-BY-4.0. The Census data is public domain; the derived fields are mine.
 
 ## Distribution
 
 - **Kaggle**: [lucassteuber/us-housing-affordability-crisis](https://www.kaggle.com/datasets/lucassteuber/us-housing-affordability-crisis)
 - **HuggingFace**: [lukeslp/us-housing-affordability-crisis](https://huggingface.co/datasets/lukeslp/us-housing-affordability-crisis)
 - **GitHub Gist**: [Demo Notebook](https://gist.github.com/lukeslp/02fc9010feb6e8657b6439303037e5f0)
-
-## Author
-
-Luke Steuber | luke@lukesteuber.com | @lukesteuber.com (Bluesky)
 
 ## Structured Data (JSON-LD)
 
