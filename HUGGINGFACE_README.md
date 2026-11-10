@@ -55,6 +55,10 @@ with open('data.json') as f:
 ```
 
 
+## Missing values
+
+The Census Bureau publishes no median gross rent for ten sparsely populated counties, and no median household income for one of them (Loving County, Texas). Those cells are empty, and so are the fields computed from them: `annual_rent`, `rent_to_income_ratio`, `affordability_category`, `hours_at_min_wage_for_rent` and `weeks_at_min_wage_for_rent`. Before November 10, 2026 they held the Census placeholder `-666666666` and values computed from it.
+
 ## Distribution
 
 - **GitHub**: [lukeslp/us-housing-affordability-crisis](https://github.com/lukeslp/us-housing-affordability-crisis)
